@@ -27,9 +27,9 @@
     * [ ] UI
 
 * [ ] Elements of the Periodic Table: - Darren
-    * [ ] Hydrogen (1) - Ryan
+    * [X] Hydrogen (1) - Ryan
     * [ ] Helium (2) - Gabriel
-    * [ ] Lithium (3) - Darren
+    * [X] Lithium (3) - Darren
     * [ ] Nitrogen (7) - Yiwen
     * [ ] Oxygen (8) - Leo
     * [ ] Phosphorus (15) - Shi Jun
