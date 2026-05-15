@@ -13,7 +13,7 @@
             }
             span {
                 padding: 20px 20px;
-                margin-top: 50px;
+                margin-top: 10px;
                 border: 2px solid black;
                 width: 20px;
                 height: 30px;
@@ -26,6 +26,9 @@
                 justify-content: space-between;
                 padding: 0px 50px;
             }
+            .top{
+                margin-top: 1vw
+            }
             .sec {
                 display: flex;
                 flex-direction: column;
@@ -35,7 +38,17 @@
                 display: flex;
                 gap: 2px;
             }
-
+            .information{
+                width: 50vw;
+            }
+            h2{
+                margin-left:10vw
+            }
+            p{
+                margin-left:2vw;
+                margin-right:2vw;
+                font-size:2vw;
+            }
         </style>
 
         <title>Title</title>
@@ -59,15 +72,22 @@
                     </div>
                 </div>
         </div>
-            <!-- <span id = "H" data-desc = "H is..." data-atomic-number = 1 data-symbol = "H" data-atomic-name = "Hydrogen">H</span>
-            <span id = "He" data-desc = "He is..." data-atomic-number = 2 data-symbol = "He" data-atomic-name = "Helium">He</span> -->
-            <!-- <span id = "He" data-desc = "He is..." data-atomic-number = 2 data-symbol = "He" data-atomic-name = "Helium">He</span> -->
-         <div id = "information">
+        <div style = "display:flex">
+             <div class = "information sec">
+            <h2 id = "name"></h2>
+            <h2 id = "symbol"></h2>
+            <h2 id= "number"></h2>
+            <p id = "description"></p>
+              </div>
+              <div id = "theCanvas" class = "top"></div>
+        </div>
+         <!-- <div class = "information">
             <h2 id = "name"></h2>
             <h2 id = "symbol"></h2>
             <h2 id= "number"></h2>
             <p id = "description"></p>
          </div>
+         <div id = "theCanvas"></div> -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
         <script>
@@ -92,12 +112,21 @@
         atomicNumber: 13,
         symbol: "Al",
         description: "Al is ....",
-        type: "metalloids"
-    } ]
+        type: "metalloid"
+    },
+    {
+        name:"Lithium",
+        atomicNumber: 3,
+        symbol: "Li",
+        description: "Li is...",
+        type: "metal"
+    }]
             var atomicName
             var atomicSymbol;
             var atomicNumber
             var description;
+            var clicked = false
+            var typeOfElement;
             elements.forEach(function (el) {
                 const newSpan = document.createElement("span");
                 newSpan.innerHTML = el.symbol;
@@ -106,12 +135,16 @@
                 newSpan.setAttribute("data-symbol", el.symbol);
                 newSpan.setAttribute("data-desc", el.description);
                 newSpan.setAttribute("data-atomic-name", el.name);
+                newSpan.setAttribute("data-type",el.type)
                 const metalloids = document.querySelector("#metalloids");
                 const nonmetals = document.querySelector("#nonmetals");
-                if (el.type === "metalloids") {
+                if (el.type === "metalloid") {
                     metalloids.appendChild(newSpan);
-                } else {
-                nonmetals.appendChild(newSpan);
+                } else if (el.type === "nonmetal"){
+                    nonmetals.appendChild(newSpan);
+                }
+                else{
+                    metals.appendChild(newSpan)
                 }
             })
             document.querySelectorAll('span').forEach(function(eachElement){
@@ -120,19 +153,50 @@
                     atomicSymbol = event.target.dataset.symbol
                     atomicNumber = event.target.dataset.atomicNumber
                     description = event.target.dataset.desc
+                    typeOfElement = event.target.dataset.type
+                    clicked = true
                     document.querySelector('#name').innerHTML = "Atomic Name: " + atomicName
                     document.querySelector('#symbol').innerHTML = "Atomic Symbol: " + atomicSymbol
                     document.querySelector('#number').innerHTML = "Atomic Number: " + atomicNumber
                     document.querySelector('#description').innerHTML = description
                 })
             })
-            // function setup() {
-            //     createCanvas(800, 600);
-            // }
 
-            // function draw() {
+            function setup() {
+                var canvas = createCanvas(700, 440);
+                canvas.parent("theCanvas")
+                frameRate(5)
+            }
 
-            // }
+            function draw() {
+                if (clicked == true){
+                    background(200)
+                   if (atomicSymbol == "Hg" || atomicSymbol == "Br"){
+                        for (var x = 10;x < width - 5;x += 12){
+                            for (var y = height * 0.75;y < height;y += 10){
+                                ellipse(x + random(-5, 5),y + random(-5,5),10)
+                            }
+                        }
+                    }
+                    else if (typeOfElement == "metal" || typeOfElement == "metalloid"){
+                        for (var x = 10;x < width - 5;x += 12){
+                            for (var y = height * 0.75;y < height;y += 10){
+                                ellipse(x,y,10)
+                            }
+                        }
+                    }
+                    else if (typeOfElement == "nonmetal"){
+                        for (var x = 10;x < width - 5;x += 50){
+                            for (var y = 10;y < height/2.5;y += 50){
+                                // ellipse(x + random(-5, 5),y + random(-5,5),10)
+                                if (random(100) > 50){
+                                     ellipse(x + random(-5, 5),y + random(-5,5),10)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
         </script>
     </body>
