@@ -41,6 +41,7 @@
     * [ ] Silver (47) - Edward
     * [ ] Cesium (55) - Abdel
     * [ ] Gold (79) - Alexander
+    * [ ] Cesium (55) - Abdel
     * [ ] Lawrencium (103) - Lixin
 
 ## Wait for Writers to give information first
